@@ -11,7 +11,9 @@ import { OriUtil } from 'src/app/util/ori-util';
 export class PostsMainComponent implements OnInit {
 
   posts: Post[];
+  filteredPosts: Post[];
   isLoading: boolean;
+  resultLimit: number;
 
   constructor(
     private postsService: PostsService
@@ -20,8 +22,13 @@ export class PostsMainComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
     this.posts = await this.postsService.getPosts();
+    this.filterPosts();
     this.isLoading = false;
-    console.log(this.posts, 'aaaaa');
+  }
+
+  onLimitResults(resultLimit: number): void {
+    this.resultLimit = resultLimit;
+    this.filterPosts();
   }
 
   onDelete(post: Post): void {
@@ -38,6 +45,17 @@ export class PostsMainComponent implements OnInit {
   removeItemFromTheList(id: number): void {
     const removeIndex = this.posts.map(item => item.id).indexOf(id);
     this.posts = OriUtil.spliceNoMutate(this.posts, removeIndex);
+    this.filterPosts();
+  }
+
+  filterPosts(): void {
+    let filteredPosts = Array.from(this.posts);
+
+    if (this.resultLimit) {
+      filteredPosts = filteredPosts.slice(0, this.resultLimit);
+    }
+
+    this.filteredPosts = filteredPosts;
   }
 
 }

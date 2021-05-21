@@ -1,0 +1,10 @@
+<div class="limit-results-filter">
+
+  <div class="input-group mb-3">
+    <label class="mr-3" for="limit-results-select">Limit results to number of items:</label>
+
+    <select id="limit-results-select" [ngModel]="selectedLimit" (ngModelChange)="onChange($event)">
+      <option *ngFor="let option of limitOptions" [value]="option">{{option}}</option>
+    </select>
+  </div>
+</div>

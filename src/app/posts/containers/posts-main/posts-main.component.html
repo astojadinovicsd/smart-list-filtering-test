@@ -1,9 +1,13 @@
-<h1>List of all posts:</h1>
+<div class="filters">
+  <h4>Filters:</h4>
+  <ori-limit-results-filter (limitResults)="onLimitResults($event)"></ori-limit-results-filter>
+</div>
+
+<h1>List of posts:</h1>
 
 <ori-loader *ngIf="isLoading"></ori-loader>
-
 <ori-posts-list
   *ngIf="!isLoading"
-  [posts]="posts"
+  [posts]="filteredPosts"
   (delete)="onDelete($event)"
 ></ori-posts-list>
