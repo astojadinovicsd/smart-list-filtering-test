@@ -1,0 +1,15 @@
+.posts-list {
+  margin-bottom: 100px;
+
+  table {
+    width: 100%;
+
+    th, td {
+      padding: 5px 1px;
+    }
+
+    tr {
+      border-bottom: solid 1px gray;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<div class="posts-list">
+  <table class="mt-4" *ngIf="posts?.length > 0">
+    <colgroup>
+      <col span="1" style="width: 8%;">
+      <col span="1" style="width: 64%;">
+      <col span="1" style="width: 8%;">
+      <col span="1" style="width: 20%;">
+    </colgroup>
+    <tr>
+      <th>Num</th>
+      <th>Title</th>
+      <th>User id</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let post of posts; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ post.title }}</td>
+      <td>{{ post.userId }}</td>
+      <td><button class="btn btn-secondary" (click)="onDelete(post)">Delete</button></td>
+    </tr>
+  </table>
+
+  <div *ngIf="posts?.length === 0">
+    No posts with this criteria
+  </div>
+
+</div>

@@ -9,7 +9,7 @@ import { PostsService } from 'src/app/posts/services/posts.service';
 })
 export class PostsMainComponent implements OnInit {
 
-  users: Post[];
+  posts: Post[];
   isLoading: boolean;
 
   constructor(
@@ -19,9 +19,9 @@ export class PostsMainComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.isLoading = true;
-    this.users = await this.postsService.getPosts();
+    this.posts = await this.postsService.getPosts();
     this.isLoading = false;
-    console.log(this.users, 'aaaaa');
+    console.log(this.posts, 'aaaaa');
   }
 
 }

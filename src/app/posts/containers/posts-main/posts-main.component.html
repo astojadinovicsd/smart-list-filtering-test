@@ -1,3 +1,5 @@
-<div>Posts main</div>
+<h1>List of all posts:</h1>
 
 <ori-loader *ngIf="isLoading"></ori-loader>
+
+<ori-posts-list *ngIf="!isLoading" [posts]="posts"></ori-posts-list>
