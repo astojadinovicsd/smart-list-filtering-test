@@ -1,6 +1,10 @@
 <div class="filters">
   <h4>Filters:</h4>
   <ori-limit-results-filter (limitResults)="onLimitResults($event)"></ori-limit-results-filter>
+  <ori-user-id-filter
+    [userIdOptions]="userIdsOptions"
+    (filterByUserIds)="onFilterByUserIds($event)"
+  ></ori-user-id-filter>
 </div>
 
 <h1>List of posts:</h1>

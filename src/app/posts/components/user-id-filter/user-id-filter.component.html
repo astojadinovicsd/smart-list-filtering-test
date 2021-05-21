@@ -1,0 +1,10 @@
+<div class="user-id-filter">
+
+  <div>Filter posts by user id:</div>
+
+  <span *ngFor="let userId of userIdOptions" class="mr-3">
+    <input (change)="onChange(userId, $event.target.checked)" type="checkbox" id="{{userId}}">
+    <label class="ml-1" for="{{userId}}">{{userId}}</label>
+  </span>
+
+</div>

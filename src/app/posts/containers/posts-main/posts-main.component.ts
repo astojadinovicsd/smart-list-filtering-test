@@ -14,6 +14,8 @@ export class PostsMainComponent implements OnInit {
   filteredPosts: Post[];
   isLoading: boolean;
   resultLimit: number;
+  userIdsOptions: number[];
+  selectedUserIds: number[];
 
   constructor(
     private postsService: PostsService
@@ -22,6 +24,7 @@ export class PostsMainComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
     this.posts = await this.postsService.getPosts();
+    this.userIdsOptions = this.getUserIdsOptions();
     this.filterPosts();
     this.isLoading = false;
   }
@@ -51,11 +54,28 @@ export class PostsMainComponent implements OnInit {
   filterPosts(): void {
     let filteredPosts = Array.from(this.posts);
 
+    if (this.selectedUserIds && this.selectedUserIds.length > 0) {
+      // filter by userId
+      filteredPosts = filteredPosts.filter(fp => this.selectedUserIds.includes(fp.userId));
+    }
+
     if (this.resultLimit) {
+      // limit results to number of items
       filteredPosts = filteredPosts.slice(0, this.resultLimit);
     }
 
     this.filteredPosts = filteredPosts;
+  }
+
+  getUserIdsOptions(): number[] {
+    const mapUserIds = this.posts.map(p => p.userId);
+    // return unique user ids
+    return [...new Set(mapUserIds)];
+  }
+
+  onFilterByUserIds(selectedUserIds): void {
+    this.selectedUserIds = selectedUserIds;
+    this.filterPosts();
   }
 
 }
