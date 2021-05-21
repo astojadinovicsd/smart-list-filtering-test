@@ -10,13 +10,17 @@ import { PostsService } from 'src/app/posts/services/posts.service';
 export class PostsMainComponent implements OnInit {
 
   users: Post[];
+  isLoading: boolean;
 
   constructor(
     private postsService: PostsService
   ) {}
 
   async ngOnInit(): Promise<void> {
+
+    this.isLoading = true;
     this.users = await this.postsService.getPosts();
+    this.isLoading = false;
     console.log(this.users, 'aaaaa');
   }
 
