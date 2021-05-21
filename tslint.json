@@ -16,7 +16,7 @@
     "deprecation": {
       "severity": "warning"
     },
-    "eofline": true,
+    "eofline": false,
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -107,7 +107,6 @@
     "variable-name": {
       "options": [
         "ban-keywords",
-        "check-format",
         "allow-pascal-case"
       ]
     },
@@ -139,14 +138,17 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "ori",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "ori",
       "kebab-case"
-    ]
+    ],
+    "no-trailing-whitespace": false,
+    "object-literal-shorthand": false,
+    "no-string-literal": false
   }
 }
