@@ -24,4 +24,13 @@ export class PostsService {
       .toPromise();
   }
 
+  public deletePost(id: number): Promise<void> {
+    return this.http
+      .delete(`${API_URL}/posts/${id}`)
+      .pipe(
+        catchError(handleErrorResultResponse)
+      )
+      .toPromise();
+  }
+
 }
