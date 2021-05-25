@@ -19,7 +19,7 @@
   <ori-posts-list
     *ngIf="!isLoading"
     [posts]="filteredPosts"
-    (delete)="onDelete($event)"
+    (delete)="onDeleteClicked($event)"
     (postClick)="onPostClick($event)"
   ></ori-posts-list>
 

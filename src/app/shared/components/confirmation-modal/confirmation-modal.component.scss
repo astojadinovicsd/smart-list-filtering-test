@@ -1,0 +1,13 @@
+.c-modal {
+  padding: 30px 20px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__buttons {
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

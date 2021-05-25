@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CreatePostModalComponent } from 'src/app/posts/components/create-post-modal/create-post-modal.component';
 import { Post } from 'src/app/posts/model/post';
 import { PostsService } from 'src/app/posts/services/posts.service';
+import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-modal.component';
 import { OriUtil } from 'src/app/util/ori-util';
 
 @Component({
@@ -43,7 +44,28 @@ export class PostsMainComponent implements OnInit {
     this.filterPosts();
   }
 
-  onDelete(post: Post): void {
+  onDeleteClicked(post: Post): void {
+
+    const modalInitialState = {
+      title: 'Are you sure?',
+      question: `Are you sure that you want to delete the post with the title: "${post?.title}"`
+    };
+    const modalRef = this.modalService.show(ConfirmationModalComponent, {
+      initialState: modalInitialState
+    });
+    const modalContent: ConfirmationModalComponent = modalRef.content as ConfirmationModalComponent;
+
+    modalContent.onClose
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (confirmed) => {
+          if (confirmed) {
+            this.deletePost(post);
+          }
+        });
+  }
+
+  deletePost(post: Post): void {
     this.isLoading = true;
     this.postsService.deletePost(post?.id).then((response) => {
       // Important: resource will not be really updated on the server but it will be faked as if.

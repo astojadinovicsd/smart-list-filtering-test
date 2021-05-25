@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
+import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-modal.component';
 import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
 
 @NgModule({
   declarations: [
-    LoaderComponent
+    LoaderComponent,
+    ConfirmationModalComponent
   ],
   imports: [],
   exports: [
-    LoaderComponent
+    LoaderComponent,
+    ConfirmationModalComponent
   ],
 })
 
