@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { Comment } from 'src/app/posts/model/comment';
 import { Post } from 'src/app/posts/model/post';
-import { handleErrorResultResponse } from 'src/app/util/error-util';
+import { ErrorService } from 'src/app/shared/services/error.service';
 import { environment } from 'src/environments/environment';
 
 const API_URL = environment.apiUrl;
@@ -11,16 +11,17 @@ const API_URL = environment.apiUrl;
 @Injectable()
 export class PostsService {
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(
+    private http: HttpClient,
+    private errorService: ErrorService
+  ) {}
 
   public getPosts(): Promise<Array<Post>> {
 
     return this.http
       .get(`${API_URL}/posts`)
       .pipe(
-        catchError(handleErrorResultResponse)
+        catchError((err => this.errorService.handleError(err)))
       )
       .toPromise();
   }
@@ -29,7 +30,7 @@ export class PostsService {
     return this.http
       .delete(`${API_URL}/posts/${id}`)
       .pipe(
-        catchError(handleErrorResultResponse)
+        catchError((err => this.errorService.handleError(err)))
       )
       .toPromise();
   }
@@ -39,7 +40,7 @@ export class PostsService {
     return this.http
       .get(`${API_URL}/posts/${id}`)
       .pipe(
-        catchError(handleErrorResultResponse)
+        catchError((err => this.errorService.handleError(err)))
       )
       .toPromise();
   }
@@ -49,7 +50,7 @@ export class PostsService {
     return this.http
       .get(`${API_URL}/posts/${id}/comments`)
       .pipe(
-        catchError(handleErrorResultResponse)
+        catchError((err => this.errorService.handleError(err)))
       )
       .toPromise();
   }
@@ -58,7 +59,7 @@ export class PostsService {
     return this.http
       .post(`${API_URL}/posts/`, post)
       .pipe(
-        catchError(handleErrorResultResponse)
+        catchError((err => this.errorService.handleError(err)))
       )
       .toPromise();
   }
