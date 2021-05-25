@@ -12,11 +12,11 @@
       <th>User id</th>
       <th></th>
     </tr>
-    <tr *ngFor="let post of posts; let i = index">
+    <tr class="post-row" *ngFor="let post of posts; let i = index" (click)="onPostClick(post)">
       <td>{{ i + 1 }}</td>
       <td>{{ post.title }}</td>
       <td>{{ post.userId }}</td>
-      <td><button class="btn btn-secondary" (click)="onDelete(post)">Delete</button></td>
+      <td><button class="btn btn-secondary" (click)="onDelete(post, $event)">Delete</button></td>
     </tr>
   </table>
 

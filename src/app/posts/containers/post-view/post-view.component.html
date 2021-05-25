@@ -1,0 +1,26 @@
+<div class="post-view">
+  <div class="post-details">
+    <ori-loader *ngIf="isPostLoading"></ori-loader>
+    <div *ngIf="!isPostLoading">
+      <p>Post title: {{title}}</p>
+      <p>Post body: {{body}}</p>
+      <p>User id: {{userId}}</p>
+    </div>
+  </div>
+  <div class="post-comments">
+    <accordion [isAnimated]="true">
+      <accordion-group heading="Comments" [isOpen]="true">
+        <ori-loader *ngIf="isCommentsLoading"></ori-loader>
+        <ng-container *ngIf="!isCommentsLoading">
+          <div class="comment-info mb-3" *ngFor="let comment of comments">
+            <p>Name: {{comment?.name}}</p>
+            <p>Email: {{comment?.email}}</p>
+            <p>Body: {{comment?.body}}</p>
+          </div>
+        </ng-container>
+      </accordion-group>
+    </accordion>
+  </div>
+
+  <button (click)="goBack()" class="btn btn-secondary mt-3">Back</button>
+</div>

@@ -11,10 +11,16 @@ export class PostsListComponent {
   @Input() posts: Post[];
 
   @Output() delete: EventEmitter<Post> = new EventEmitter();
+  @Output() postClick: EventEmitter<Post> = new EventEmitter();
 
   constructor() {}
 
-  onDelete(post: Post): void {
+  onDelete(post: Post, event: Event): void {
     this.delete.emit(post);
+    event.stopPropagation();
+  }
+
+  onPostClick(post: Post): void {
+    this.postClick.emit(post);
   }
 }

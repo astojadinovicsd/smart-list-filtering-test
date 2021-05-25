@@ -5,4 +5,8 @@ export class OriUtil {
     return myArray.slice(0, indexToRemove).concat(myArray.slice(indexToRemove + 1));
   }
 
+  public static getUniqueValues(values: any[]): any[] {
+    return [...new Set(values)];
+  }
+
 }

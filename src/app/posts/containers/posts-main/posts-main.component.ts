@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from 'src/app/posts/model/post';
 import { PostsService } from 'src/app/posts/services/posts.service';
 import { OriUtil } from 'src/app/util/ori-util';
@@ -18,7 +19,8 @@ export class PostsMainComponent implements OnInit {
   selectedUserIds: number[];
 
   constructor(
-    private postsService: PostsService
+    private postsService: PostsService,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -70,12 +72,20 @@ export class PostsMainComponent implements OnInit {
   getUserIdsOptions(): number[] {
     const mapUserIds = this.posts.map(p => p.userId);
     // return unique user ids
-    return [...new Set(mapUserIds)];
+    return OriUtil.getUniqueValues(mapUserIds);
   }
 
   onFilterByUserIds(selectedUserIds): void {
     this.selectedUserIds = selectedUserIds;
     this.filterPosts();
+  }
+
+  onPostClick(post: Post): void {
+    this.router.navigate(['posts', 'view', post?.id], {queryParams: {
+      title: post?.title,
+      body: post?.body,
+      userId: post?.userId
+    }});
   }
 
 }
