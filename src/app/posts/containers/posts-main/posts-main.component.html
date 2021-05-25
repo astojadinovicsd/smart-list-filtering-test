@@ -7,9 +7,10 @@
       [userIdOptions]="userIdsOptions"
       (filterByUserIds)="onFilterByUserIds($event)"
     ></ori-user-id-filter>
+    <ori-search-post (search)="onSearch($event)"></ori-search-post>
   </div>
 
-  <div class="create-new-post">
+  <div class="create-new-post mt-3">
     <button type="button" class="btn btn-primary" (click)="onCreateNewPost()">Create new post</button>
   </div>
 

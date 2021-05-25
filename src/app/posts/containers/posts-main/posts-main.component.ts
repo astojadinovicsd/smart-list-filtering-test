@@ -22,6 +22,7 @@ export class PostsMainComponent implements OnInit {
   resultLimit: number;
   userIdsOptions: number[];
   selectedUserIds: number[];
+  searchText: string;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -90,6 +91,11 @@ export class PostsMainComponent implements OnInit {
       filteredPosts = filteredPosts.filter(fp => this.selectedUserIds.includes(fp.userId));
     }
 
+    if (this.searchText) {
+      // search by title
+      filteredPosts = this.filterBySearchText(filteredPosts, this.searchText);
+    }
+
     if (this.resultLimit) {
       // limit results to number of items
       filteredPosts = filteredPosts.slice(0, this.resultLimit);
@@ -135,6 +141,34 @@ export class PostsMainComponent implements OnInit {
           });
         }
       });
+  }
+
+  onSearch(searchText: string): void {
+    this.searchText = searchText;
+    this.filterPosts();
+  }
+
+  filterBySearchText(posts: Post[], searchText: string): Post[] {
+    const conditionSatisfied = [];
+
+    posts.forEach((p) => {
+      const lcTitle = p?.title.toLowerCase();
+      const lcSearchText = searchText.toLowerCase();
+
+      // does post title contains search text?
+      if (lcTitle.indexOf(lcSearchText) > -1) {
+
+        if (lcTitle.startsWith(lcSearchText)) {
+          // prioritize search with start of the title first
+          conditionSatisfied.unshift(p);
+        } else {
+          // lower priority if string just contains
+          conditionSatisfied.push(p);
+        }
+      }
+    });
+
+    return conditionSatisfied;
   }
 
 }

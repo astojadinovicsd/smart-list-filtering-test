@@ -6,6 +6,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreatePostModalComponent } from 'src/app/posts/components/create-post-modal/create-post-modal.component';
 import { LimitResultsFilterComponent } from 'src/app/posts/components/limit-results-filter/limit-results-filter.component';
 import { PostsListComponent } from 'src/app/posts/components/posts-list/posts-list.component';
+import { SearchPostComponent } from 'src/app/posts/components/search-post/search-post.component';
 import { UserIdFilterComponent } from 'src/app/posts/components/user-id-filter/user-id-filter.component';
 import { PostViewComponent } from 'src/app/posts/containers/post-view/post-view.component';
 import { PostsMainComponent } from 'src/app/posts/containers/posts-main/posts-main.component';
@@ -20,7 +21,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     LimitResultsFilterComponent,
     UserIdFilterComponent,
     PostViewComponent,
-    CreatePostModalComponent
+    CreatePostModalComponent,
+    SearchPostComponent
   ],
   imports: [
     CommonModule,
