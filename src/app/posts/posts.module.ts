@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CreatePostModalComponent } from 'src/app/posts/components/create-post-modal/create-post-modal.component';
 import { LimitResultsFilterComponent } from 'src/app/posts/components/limit-results-filter/limit-results-filter.component';
 import { PostsListComponent } from 'src/app/posts/components/posts-list/posts-list.component';
 import { UserIdFilterComponent } from 'src/app/posts/components/user-id-filter/user-id-filter.component';
@@ -17,14 +19,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
     PostsListComponent,
     LimitResultsFilterComponent,
     UserIdFilterComponent,
-    PostViewComponent
+    PostViewComponent,
+    CreatePostModalComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     PostsRoutingModule,
     SharedModule,
     AccordionModule.forRoot(),
+    ModalModule.forChild()
   ],
   providers: [
     PostsService

@@ -54,4 +54,13 @@ export class PostsService {
       .toPromise();
   }
 
+  public createPost(post: Post): Promise<Post> {
+    return this.http
+      .post(`${API_URL}/posts/`, post)
+      .pipe(
+        catchError(handleErrorResultResponse)
+      )
+      .toPromise();
+  }
+
 }

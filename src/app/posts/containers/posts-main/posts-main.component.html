@@ -1,18 +1,26 @@
-<div class="filters">
-  <h4>Filters:</h4>
-  <ori-limit-results-filter (limitResults)="onLimitResults($event)"></ori-limit-results-filter>
-  <ori-user-id-filter
-    [userIdOptions]="userIdsOptions"
-    (filterByUserIds)="onFilterByUserIds($event)"
-  ></ori-user-id-filter>
+<div class="post-main">
+
+  <div class="filters">
+    <h4>Filters:</h4>
+    <ori-limit-results-filter (limitResults)="onLimitResults($event)"></ori-limit-results-filter>
+    <ori-user-id-filter
+      [userIdOptions]="userIdsOptions"
+      (filterByUserIds)="onFilterByUserIds($event)"
+    ></ori-user-id-filter>
+  </div>
+
+  <div class="create-new-post">
+    <button type="button" class="btn btn-primary" (click)="onCreateNewPost()">Create new post</button>
+  </div>
+
+  <h1>List of posts:</h1>
+
+  <ori-loader *ngIf="isLoading"></ori-loader>
+  <ori-posts-list
+    *ngIf="!isLoading"
+    [posts]="filteredPosts"
+    (delete)="onDelete($event)"
+    (postClick)="onPostClick($event)"
+  ></ori-posts-list>
+
 </div>
-
-<h1>List of posts:</h1>
-
-<ori-loader *ngIf="isLoading"></ori-loader>
-<ori-posts-list
-  *ngIf="!isLoading"
-  [posts]="filteredPosts"
-  (delete)="onDelete($event)"
-  (postClick)="onPostClick($event)"
-></ori-posts-list>

@@ -1,0 +1,12 @@
+.u-modal {
+  padding: 30px 20px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}

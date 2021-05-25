@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { CreatePostModalComponent } from 'src/app/posts/components/create-post-modal/create-post-modal.component';
 import { Post } from 'src/app/posts/model/post';
 import { PostsService } from 'src/app/posts/services/posts.service';
 import { OriUtil } from 'src/app/util/ori-util';
@@ -18,9 +22,12 @@ export class PostsMainComponent implements OnInit {
   userIdsOptions: number[];
   selectedUserIds: number[];
 
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private postsService: PostsService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -86,6 +93,26 @@ export class PostsMainComponent implements OnInit {
       body: post?.body,
       userId: post?.userId
     }});
+  }
+
+  onCreateNewPost(): void {
+    const modalRef = this.modalService.show(CreatePostModalComponent);
+    const modalContent: CreatePostModalComponent = modalRef.content as CreatePostModalComponent;
+
+    modalContent.onClose
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((newPost: Post) => {
+        if (!!newPost) {
+
+          this.postsService.createPost(newPost).then((response: Post) => {
+            this.posts.push(response);
+            this.filterPosts();
+            modalContent.bsModalRef.hide();
+          }).catch((error) => {
+            console.log('Error:', error);
+          });
+        }
+      });
   }
 
 }
